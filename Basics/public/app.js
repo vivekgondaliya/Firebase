@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", event => {
   const db = firebase.firestore();
   const settings = {/* your settings... */ timestampsInSnapshots: true};
   db.settings(settings);
-  const myPost = db.collection('posts').doc('firepost');
+  // const myPost = db.collection('posts').doc('firepost');
 
   // myPost.get()
   //   .then(doc => {
@@ -43,15 +43,27 @@ document.addEventListener("DOMContentLoaded", event => {
   // });
 
   //Everytime input changes, update Firestore
-  myPost.onSnapshot(doc => {
-    const data = doc.data();
-    document.querySelector('#title').innerHTML = data.title;
-  });
+  // myPost.onSnapshot(doc => {
+  //   const data = doc.data();
+  //   document.querySelector('#title').innerHTML = data.title;
+  // });
+  //
+  // function updatePost(e){
+  //   const db = firebase.firestore();
+  //   const myPost = db.collection('posts').doc('firepost');
+  //   myPost.update({ title: e.target.value });
+  // }
+  // document.getElementById ("title").addEventListener ("onchange", updatePost, false);
 
-  function updatePost(e){
-    const db = firebase.firestore();
-    const myPost = db.collection('posts').doc('firepost');
-    myPost.update({ title: e.target.value });
-  }
-  document.getElementById ("title").addEventListener ("onchange", updatePost, false);
+  //Query Docs
+  const productsRef = db.collection('products');
+  const queryWhere = productsRef.where('price', '>', 25);
+  const queryOrderBy = productsRef.orderBy('price', 'desc').limit(10);
+  query.get()
+    .then(products => {
+      products.forEach(doc => {
+        data = doc.data();
+        document.write(data.name + 'at $' + data.price + '<br/>'); //NO RESULT
+      })
+    });
 });
