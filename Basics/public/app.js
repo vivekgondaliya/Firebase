@@ -36,9 +36,22 @@ document.addEventListener("DOMContentLoaded", event => {
   //   });
 
   //Listening for REAL-TIME Data Change
+  // myPost.onSnapshot(doc => {
+  //   const data = doc.data();
+  //   document.write(data.title + '</br>');
+  //   document.write(data.views + '</br>');
+  // });
+
+  //Everytime input changes, update Firestore
   myPost.onSnapshot(doc => {
     const data = doc.data();
-    document.write(data.title + '</br>');
-    document.write(data.views + '</br>');
+    document.querySelector('#title').innerHTML = data.title;
   });
+
+  function updatePost(e){
+    const db = firebase.firestore();
+    const myPost = db.collection('posts').doc('firepost');
+    myPost.update({ title: e.target.value });
+  }
+  document.getElementById ("title").addEventListener ("onchange", updatePost, false);
 });
