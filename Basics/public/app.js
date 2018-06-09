@@ -20,4 +20,17 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   document.getElementById ("login").addEventListener ("click", googleLogin, false);
+
+  //Firestore DB
+  const db = firebase.firestore();
+  const settings = {/* your settings... */ timestampsInSnapshots: true};
+  db.settings(settings);
+  const myPost = db.collection('posts').doc('firepost');
+
+  myPost.get()
+    .then(doc => {
+      const data = doc.data();
+      document.write(data.title + '</br>');
+      document.write(data.views);
+    });
 });
