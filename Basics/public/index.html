@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
-
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -12,6 +11,7 @@
     <script defer src="/__/firebase/5.0.4/firebase-database.js"></script>
     <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script>
     <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
@@ -34,9 +34,13 @@
     <!-- <h1 id='title'></h1>
     <input type="text" id="title" value=""/> -->
 
-    <script defer src="app.js"></script>
     <!-- <button type="button" name="button" id="login">
       Login with Google
     </button> -->
+    <h3>Storage Uploads</h3>
+    <input type="file" name="" value="" onchange="uploadFile(this.files)"> <hr>
+    <img src="" id="imgUpload" alt="" width="100vw">
+
+    <script defer src="app.js"></script>
   </body>
 </html>

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", event => {
 
   //check if firebase is available
-  const app = firebase.app();
-  console.log(app);
+  //const app = firebase.app();
+  //console.log(app);
 
   // USER AUTHENTICATION
   // function googleLogin(){
@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", event => {
   // document.getElementById ("login").addEventListener ("click", googleLogin, false);
 
   //Firestore DB
-  const db = firebase.firestore();
-  const settings = {/* your settings... */ timestampsInSnapshots: true};
-  db.settings(settings);
+  // const db = firebase.firestore();
+  // const settings = {/* your settings... */ timestampsInSnapshots: true};
+  // db.settings(settings);
   // const myPost = db.collection('posts').doc('firepost');
 
   // myPost.get()
@@ -56,14 +56,38 @@ document.addEventListener("DOMContentLoaded", event => {
   // document.getElementById ("title").addEventListener ("onchange", updatePost, false);
 
   //Query Docs
-  const productsRef = db.collection('products');
-  const queryWhere = productsRef.where('price', '>', 25);
-  const queryOrderBy = productsRef.orderBy('price', 'desc').limit(10);
-  query.get()
-    .then(products => {
-      products.forEach(doc => {
-        data = doc.data();
-        document.write(data.name + 'at $' + data.price + '<br/>'); //NO RESULT
-      })
-    });
+  // const productsRef = db.collection('products');
+  // const queryWhere = productsRef.where('price', '>', 25);
+  // const queryOrderBy = productsRef.orderBy('price', 'desc').limit(10);
+  // query.get()
+  //   .then(products => {
+  //     products.forEach(doc => {
+  //       data = doc.data();
+  //       document.write(data.name + 'at $' + data.price + '<br/>'); //NO RESULT
+  //     })
+  //   });
+
 });
+
+//STORAGE : Videos and Images
+function uploadFile(files){
+    const storageRef = firebase.storage().ref();
+    const imgRef = storageRef.child('image.jpg');
+    const file = files.item(0);
+    const task = imgRef.put(file);
+
+    task.then(snapshot => {
+      console.log(snapshot);
+      loadImage(imgRef);
+    })
+}
+
+function loadImage(imgRef){
+  // Get the download URL
+  imgRef.getDownloadURL().then(function(url) {
+    // Insert url into an <img> tag to "download"
+    document.querySelector('#imgUpload').setAttribute('src', url);
+  }).catch(function(error) {
+    console.log(error.code);
+  });
+}
